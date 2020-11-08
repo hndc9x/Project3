@@ -1,0 +1,5 @@
+https://nguyenvanhieu.vn/thuat-toan-phan-cum-k-means/#gioi-thieu-ve-kmeans
+
+https://machinelearningcoban.com/2017/01/01/kmeans/
+
+https://ml-for-vietnameses.readthedocs.io/vi/latest/k-means-clustering.html
