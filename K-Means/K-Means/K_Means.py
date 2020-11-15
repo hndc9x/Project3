@@ -12,23 +12,31 @@ X1 = np.random.multivariate_normal(means[1], cov, n_samples)
 X2 = np.random.multivariate_normal(means[2], cov, n_samples)
 X = np.concatenate((X0, X1, X2), axis = 0)
 
-#plt.xlabel('x')
-#plt.ylabel('y')
-#plt.plot(X[:, 0], X[:, 1], 'bo', markersize=5)
-#plt.plot()
-#plt.show()
+'''
+plt.xlabel('x')
+plt.ylabel('y')
+plt.plot(X[:, 0], X[:, 1], 'bo', markersize=5)
+plt.plot()
+plt.show()
+'''
 
 def kmeans_init_centers(X, n_cluster):
   # random k index beetween 0 and shape(X) without duplicate index.
   # Then return X[index] as cluster
+  #shape trả về số cụm và số phần tử trong cụm --> shape[0] --> trả về số cụm
+  #replace = false --> không có phần tử trùng
+  #trả về mảng gồm n_cluster phẩn tử giới hạn trong mảng số cụm X
   return X[np.random.choice(X.shape[0], n_cluster, replace=False)]
 
+#xác định tâm cụm
 def kmeans_predict_labels(X, centers):
   D = cdist(X, centers)
   # return index of the closest center
+  print(np.argmin(D, axis = 1))
   return np.argmin(D, axis = 1)
-
+ 
 def kmeans_update_centers(X, labels, n_cluster):
+    #tạo n_cluster mảng và X.shape[1] phần tử mỗi mảng --> toàn bộ các cột bằng 0
   centers = np.zeros((n_cluster, X.shape[1]))
   for k in range(n_cluster):
     # collect all points assigned to the k-th cluster 
@@ -66,7 +74,7 @@ def kmeans(init_centes, init_labels, X, n_cluster):
   labels = init_labels
   times = 0
   while True:
-    labels = kmeans_predict_labels(X, centers)
+    labels = kmeans_predict_labels(X, centers) # labels =  những data gần tâm nhất
     kmeans_visualize(X, centers, labels, n_cluster, 'Assigned label for data at time = ' + str(times + 1))
     new_centers = kmeans_update_centers(X, labels, n_cluster)
     if kmeans_has_converged(centers, new_centers):
@@ -76,6 +84,7 @@ def kmeans(init_centes, init_labels, X, n_cluster):
     times += 1
   return (centers, labels, times)
 
+
 init_centers = kmeans_init_centers(X, n_cluster)
 print(init_centers) # In ra tọa độ khởi tạo ban đầu của các tâm cụm
 init_labels = np.zeros(X.shape[0])
@@ -83,3 +92,5 @@ kmeans_visualize(X, init_centers, init_labels, n_cluster, 'Init centers in the f
 centers, labels, times = kmeans(init_centers, init_labels, X, n_cluster)
  
 print('Done! Kmeans has converged after', times, 'times')
+print (centers)
+print (labels)
