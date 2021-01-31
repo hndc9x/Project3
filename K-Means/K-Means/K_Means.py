@@ -53,8 +53,8 @@ def kmeans_has_converged(centers, new_centers):
 
 # Hàm này dùng để vẽ dữ liệu lên đồ thị
 # Random color chỉ làm việc với k <= 4
-# Nếu bạn thay đổi k > 4, hãy sửa lại phần random color nhé
-# Chỉ sử dụng trong bài toán này thôi nhé.
+# Nếu thay đổi k > 4, sửa lại phần random color
+# Chỉ sử dụng trong bài toán 
 def kmeans_visualize(X, centers, labels, n_cluster, title):
   plt.xlabel('x') # label trục x
   plt.ylabel('y') # label trục y
@@ -85,12 +85,10 @@ def kmeans(init_centes, init_labels, X, n_cluster):
   return (centers, labels, times)
 
 
-init_centers = kmeans_init_centers(X, n_cluster)
+init_centers = kmeans_init_centers(X, n_cluster) #tọa đồ các tâm cụm
 print(init_centers) # In ra tọa độ khởi tạo ban đầu của các tâm cụm
 init_labels = np.zeros(X.shape[0])
 kmeans_visualize(X, init_centers, init_labels, n_cluster, 'Init centers in the first run. Assigned all data as cluster 0')
 centers, labels, times = kmeans(init_centers, init_labels, X, n_cluster)
  
 print('Done! Kmeans has converged after', times, 'times')
-print (centers)
-print (labels)
